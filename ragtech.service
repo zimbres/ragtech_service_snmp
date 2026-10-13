@@ -1,0 +1,43 @@
+[Unit]
+Description=Ragtech UPS SNMP Agent
+Documentation=man:ragtech_service(8)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ragtech
+Group=ragtech
+ExecStart=/usr/local/bin/ragtech_service -c /etc/ragtech/ragtech.conf -f
+KillMode=mixed
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=30
+
+# Security hardening
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+SupplementaryGroups=dialout
+StateDirectory=ragtech
+RuntimeDirectory=ragtech
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/ragtech /var/run/ragtech
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+# Serial port access
+# Add user to dialout group: usermod -a -G dialout ragtech
+# Or use: SupplementaryGroups=dialout
+
+[Install]
+WantedBy=multi-user.target

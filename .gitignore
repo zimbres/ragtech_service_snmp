@@ -1,0 +1,11 @@
+devices.xml
+/build/
+/build-*/
+/.git-history/
+/.agents/
+/.aws/
+/.codex/
+__pycache__/
+*.py[cod]
+*.log
+/dist

@@ -1,0 +1,440 @@
+RAGTECH-UPS-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, Integer32, experimental
+        FROM SNMPv2-SMI
+    OBJECT-GROUP
+        FROM SNMPv2-CONF;
+
+ragtechUpsMIB MODULE-IDENTITY
+    LAST-UPDATED "202610120000Z"
+    ORGANIZATION "Ragtech UPS SNMP agent project"
+    CONTACT-INFO "See the ragtech_service project README."
+    DESCRIPTION
+        "Read-only extensions implemented by ragtech_service for Family 10
+         Ragtech UPS devices. Standard UPS objects remain in the RFC1628
+         UPS-MIB at 1.3.6.1.2.1.33; load UPS-MIB alongside this module.
+         This module uses the locally chosen, unregistered experimental
+         subtree 1.3.6.1.3.1628. It is not an IANA enterprise assignment.
+         All scalar instances have a trailing .0. Metric integers represent
+         hundredths of the stated physical units. Divide by 100 for display.
+         Metrics, flags and raw bytes retain the last sample on connection
+         loss; check ragtechUpsConnected before interpreting them as live."
+    REVISION "202610120000Z"
+    DESCRIPTION "Initial definition matching the implemented SNMP agent."
+    ::= { experimental 1628 }
+
+ragtechUpsObjects OBJECT IDENTIFIER ::= { ragtechUpsMIB 1 }
+ragtechUpsMetrics OBJECT IDENTIFIER ::= { ragtechUpsObjects 1 }
+ragtechUpsFlags   OBJECT IDENTIFIER ::= { ragtechUpsObjects 2 }
+
+ragtechUpsOutputPercentLoad OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Output load. Source metric: power_out_percent.
+         Divide this value by 100 to obtain percent.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 1 }
+
+ragtechUpsOutputCurrent OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 amperes"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Output RMS current. Source metric: current_out.
+         Divide this value by 100 to obtain amperes.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 2 }
+
+ragtechUpsOutputVoltage OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 volts"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Output RMS voltage. Source metric: voltage_out.
+         Divide this value by 100 to obtain volts.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 3 }
+
+ragtechUpsInputVoltage OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 volts"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Input RMS voltage. Source metric: voltage_in.
+         Divide this value by 100 to obtain volts.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 4 }
+
+ragtechUpsOutputPower OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 watts"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Output power estimated as voltage times current. Source metric: power_out.
+         Divide this value by 100 to obtain watts.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 5 }
+
+ragtechUpsInputPower OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 watts"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Input power estimated from output current and input voltage. Source metric: power_in.
+         Divide this value by 100 to obtain watts.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 6 }
+
+ragtechUpsOutputEnergy OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 kWh"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Accumulated output energy. Source metric: energy_out.
+         Divide this value by 100 to obtain kWh.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 7 }
+
+ragtechUpsInputEnergy OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 kWh"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Accumulated input energy. Source metric: energy_in.
+         Divide this value by 100 to obtain kWh.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 8 }
+
+ragtechUpsTemperature OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 degrees Celsius"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "UPS temperature; sensor location is unknown. Source metric: temperature.
+         Divide this value by 100 to obtain degrees Celsius.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 9 }
+
+ragtechUpsBatteryCharge OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 percent"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Unclamped estimated battery charge. Source metric: battery_state.
+         Divide this value by 100 to obtain percent.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 10 }
+
+ragtechUpsBatteryVoltage OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 volts"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Battery DC voltage. Source metric: battery_voltage.
+         Divide this value by 100 to obtain volts.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 11 }
+
+ragtechUpsOutputFrequency OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 hertz"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Output frequency. Source metric: frequency.
+         Returns noSuchInstance when oscillator calibration is unavailable.
+         Divide this value by 100 to obtain hertz.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 12 }
+
+ragtechUpsBatteryRuntime OBJECT-TYPE
+    SYNTAX      Integer32
+    UNITS       "0.01 minutes"
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Estimated battery runtime under the current load. Source metric: battery_runtime.
+         Divide this value by 100 to obtain minutes.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsMetrics 13 }
+
+ragtechUpsNoBattery OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Battery is absent. Source flag: no_battery.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 1 }
+
+ragtechUpsOldBattery OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Battery needs replacement. Source flag: old_battery.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 2 }
+
+ragtechUpsOperationalCheckup OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Operational checkup is active. Source flag: op_checkup.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 3 }
+
+ragtechUpsNoInputVoltage OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Input voltage is absent. Source flag: no_v_input.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 4 }
+
+ragtechUpsLowInputVoltage OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Input voltage is low. Source flag: lo_v_input.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 5 }
+
+ragtechUpsHighInputVoltage OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Input voltage is high. Source flag: hi_v_input.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 6 }
+
+ragtechUpsOnBattery OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Device reports battery operation. Source flag: op_battery.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 7 }
+
+ragtechUpsHighOutputLoad OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Output load is high. Source flag: hi_p_output.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 8 }
+
+ragtechUpsLowBattery OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Battery is low. Source flag: lo_battery.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 9 }
+
+ragtechUpsOvertemperatureFailure OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Overtemperature failure. Source flag: fail_overtemp.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 10 }
+
+ragtechUpsEndBatteryFailure OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Battery depleted failure. Source flag: fail_end_battery.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 11 }
+
+ragtechUpsOverloadFailure OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Overload failure. Source flag: fail_overload.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 12 }
+
+ragtechUpsAbnormalOutputVoltageFailure OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Abnormal output voltage failure. Source flag: fail_abnormal_vout.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 13 }
+
+ragtechUpsAbnormalBatteryVoltageFailure OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Abnormal battery voltage failure. Source flag: fail_abnormal_vbat.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 14 }
+
+ragtechUpsInverterFailure OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Inverter failure. Source flag: fail_inverter.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 15 }
+
+ragtechUpsShortCircuitFailure OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Short circuit failure. Source flag: fail_shortcircuit.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 16 }
+
+ragtechUpsInputSynchronized OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Output is synchronized with input. Source flag: sync_input.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 17 }
+
+ragtechUpsMoreBattery OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Device reports the more-battery flag. Source flag: more_battery.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 18 }
+
+ragtechUpsLessBattery OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Device reports the less-battery flag. Source flag: less_battery.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 19 }
+
+ragtechUpsRemoteControlActive OBJECT-TYPE
+    SYNTAX      INTEGER { inactive(0), active(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Remote control is active. Source flag: remote_control_active.
+         The device flag is reported without inference; active means true.
+         Retains the last sample while disconnected."
+    ::= { ragtechUpsFlags 20 }
+
+ragtechUpsConnected OBJECT-TYPE
+    SYNTAX      INTEGER { disconnected(0), connected(1) }
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Current serial communication state. Before the first successful
+         UPS sample this is disconnected. If disconnected, metric and flag
+         extensions are stale and should not be treated as live readings."
+    ::= { ragtechUpsObjects 3 }
+
+ragtechUpsRawPacket OBJECT-TYPE
+    SYNTAX      OCTET STRING (SIZE (0..64))
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+        "Last received UPS response as binary bytes, not a hexadecimal text
+         string. Empty before the first sample; normally 31 bytes for Family
+         10. Retains the last packet while disconnected."
+    ::= { ragtechUpsObjects 4 }
+
+ragtechUpsConformance OBJECT IDENTIFIER ::= { ragtechUpsMIB 2 }
+ragtechUpsGroups      OBJECT IDENTIFIER ::= { ragtechUpsConformance 1 }
+
+ragtechUpsTelemetryGroup OBJECT-GROUP
+    OBJECTS {
+        ragtechUpsOutputPercentLoad,
+        ragtechUpsOutputCurrent,
+        ragtechUpsOutputVoltage,
+        ragtechUpsInputVoltage,
+        ragtechUpsOutputPower,
+        ragtechUpsInputPower,
+        ragtechUpsOutputEnergy,
+        ragtechUpsInputEnergy,
+        ragtechUpsTemperature,
+        ragtechUpsBatteryCharge,
+        ragtechUpsBatteryVoltage,
+        ragtechUpsOutputFrequency,
+        ragtechUpsBatteryRuntime,
+        ragtechUpsNoBattery,
+        ragtechUpsOldBattery,
+        ragtechUpsOperationalCheckup,
+        ragtechUpsNoInputVoltage,
+        ragtechUpsLowInputVoltage,
+        ragtechUpsHighInputVoltage,
+        ragtechUpsOnBattery,
+        ragtechUpsHighOutputLoad,
+        ragtechUpsLowBattery,
+        ragtechUpsOvertemperatureFailure,
+        ragtechUpsEndBatteryFailure,
+        ragtechUpsOverloadFailure,
+        ragtechUpsAbnormalOutputVoltageFailure,
+        ragtechUpsAbnormalBatteryVoltageFailure,
+        ragtechUpsInverterFailure,
+        ragtechUpsShortCircuitFailure,
+        ragtechUpsInputSynchronized,
+        ragtechUpsMoreBattery,
+        ragtechUpsLessBattery,
+        ragtechUpsRemoteControlActive,
+        ragtechUpsConnected,
+        ragtechUpsRawPacket
+    }
+    STATUS current
+    DESCRIPTION "All implemented Ragtech diagnostic extension objects."
+    ::= { ragtechUpsGroups 1 }
+
+END

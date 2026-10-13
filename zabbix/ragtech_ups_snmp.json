@@ -1,0 +1,1533 @@
+{
+  "zabbix_export": {
+    "version": "6.0",
+    "groups": [
+      {
+        "uuid": "f59b8008ba1a4e1f9c47bb611ef66c74",
+        "name": "Templates/Power"
+      }
+    ],
+    "templates": [
+      {
+        "uuid": "01ab4aeece194c68a9c65a45e3252911",
+        "template": "Ragtech UPS by SNMP",
+        "name": "Ragtech UPS by SNMP",
+        "description": "Ragtech Family 10 agent: RFC1628 plus all RAGTECH-UPS-MIB extensions. Numeric OIDs require no MIB installation on the Zabbix server. SNMP v2c interface must be configured on the host. Extensions retain stale samples on disconnection. Power is an estimate, not measured real power.",
+        "groups": [
+          {
+            "name": "Templates/Power"
+          }
+        ],
+        "items": [
+          {
+            "uuid": "454b8a0347fe430c86c40bd5cbd5b232",
+            "name": "UPS: Manufacturer",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.1.1.0",
+            "key": "ragtech.ups.manufacturer",
+            "delay": "1h",
+            "history": "7d",
+            "trends": "0",
+            "value_type": "CHAR",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ]
+          },
+          {
+            "uuid": "38674818042844298477214f9d7780e7",
+            "name": "UPS: Model",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.1.2.0",
+            "key": "ragtech.ups.model",
+            "delay": "1h",
+            "history": "7d",
+            "trends": "0",
+            "value_type": "CHAR",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ]
+          },
+          {
+            "uuid": "988a1f073e8c4cd4aed567459026fb92",
+            "name": "UPS: Agent software version",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.1.4.0",
+            "key": "ragtech.ups.agent_version",
+            "delay": "1h",
+            "history": "7d",
+            "trends": "0",
+            "value_type": "CHAR",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ]
+          },
+          {
+            "uuid": "64229337db8b46bd893e683ebba2ca25",
+            "name": "UPS: Battery status",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.2.1.0",
+            "key": "ragtech.ups.battery_status",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS battery status"
+            }
+          },
+          {
+            "uuid": "50958ab0692b421d86a7307c421cc83c",
+            "name": "UPS: Seconds on battery",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.2.2.0",
+            "key": "ragtech.ups.seconds_on_battery",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "s"
+          },
+          {
+            "uuid": "0a955fd6605046cd84ceb5ee330356cc",
+            "name": "UPS: Estimated runtime remaining",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.2.3.0",
+            "key": "ragtech.ups.runtime",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected. No estimate is available at zero load; the agent returns noSuchInstance.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "min"
+          },
+          {
+            "uuid": "7d067f2e47804113bf50569b7634c140",
+            "name": "UPS: Estimated battery charge",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.2.4.0",
+            "key": "ragtech.ups.charge",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "%"
+          },
+          {
+            "uuid": "0fb6d01588a54df89b954feec7c5cab7",
+            "name": "UPS: Battery voltage",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.2.5.0",
+            "key": "ragtech.ups.battery_voltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "V",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.1"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "24e8ceebaee6438d8d102fcfbde012f3",
+            "name": "UPS: Input line count",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.3.2.0",
+            "key": "ragtech.ups.input_lines",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ]
+          },
+          {
+            "uuid": "373fdcb6f3b24fc2b73fe0f74de74dbd",
+            "name": "UPS: Input voltage, line 1",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.3.3.1.3.1",
+            "key": "ragtech.ups.input_voltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "V"
+          },
+          {
+            "uuid": "7162dc3a977144dd99df4f52ee5f29a1",
+            "name": "UPS: Output source",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.4.1.0",
+            "key": "ragtech.ups.output_source",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS output source"
+            }
+          },
+          {
+            "uuid": "7a1f3dc37d3949b69b036ef65d527bca",
+            "name": "UPS: Output frequency",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.4.2.0",
+            "key": "ragtech.ups.output_frequency",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "Hz",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.1"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "d6bfd7b9ede54bd086e07ae6f93dd5cc",
+            "name": "UPS: Output line count",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.4.3.0",
+            "key": "ragtech.ups.output_lines",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ]
+          },
+          {
+            "uuid": "9cf742cfe631470882df4ac2ea640ace",
+            "name": "UPS: Output voltage, line 1",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.4.4.1.2.1",
+            "key": "ragtech.ups.output_voltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "V"
+          },
+          {
+            "uuid": "f8569774717647e287be509f12243741",
+            "name": "UPS: Output current, line 1",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.4.4.1.3.1",
+            "key": "ragtech.ups.output_current",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "A",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.1"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "e909419f2d8d4cd7827d55b9fee82e09",
+            "name": "UPS: Output power estimate, line 1",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.4.4.1.4.1",
+            "key": "ragtech.ups.output_power",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected. Estimated as voltage times current; not measured real power.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "W"
+          },
+          {
+            "uuid": "3a0166621b40433aa2cc907a7ca86dca",
+            "name": "UPS: Output load, line 1",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.2.1.33.1.4.4.1.5.1",
+            "key": "ragtech.ups.output_load",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "RFC1628 UPS-MIB. Telemetry can be unavailable when the UPS is disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "rfc1628"
+              }
+            ],
+            "units": "%"
+          },
+          {
+            "uuid": "3c28a50afbf74367bf2d8862acd0bdb3",
+            "name": "UPS detailed: Output Percent Load",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.1.0",
+            "key": "ragtech.ext.ragtechUpsOutputPercentLoad",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Output load. Source metric: power_out_percent. Divide this value by 100 to obtain percent. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "%",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "e384e831009e47378882c75d4fdebedd",
+            "name": "UPS detailed: Output Current",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.2.0",
+            "key": "ragtech.ext.ragtechUpsOutputCurrent",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Output RMS current. Source metric: current_out. Divide this value by 100 to obtain amperes. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "A",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "065b5840aeeb479fbda2b9361c513670",
+            "name": "UPS detailed: Output Voltage",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.3.0",
+            "key": "ragtech.ext.ragtechUpsOutputVoltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Output RMS voltage. Source metric: voltage_out. Divide this value by 100 to obtain volts. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "V",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "fd51cc1e04954f98baae4605c0d3c011",
+            "name": "UPS detailed: Input Voltage",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.4.0",
+            "key": "ragtech.ext.ragtechUpsInputVoltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Input RMS voltage. Source metric: voltage_in. Divide this value by 100 to obtain volts. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "V",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "e517bb6ec5e74adc8a6bf1f8b26811c7",
+            "name": "UPS detailed: Output Power",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.5.0",
+            "key": "ragtech.ext.ragtechUpsOutputPower",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Output power estimated as voltage times current. Source metric: power_out. Divide this value by 100 to obtain watts. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "W",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "19621292082442cc91411cad669e2c7f",
+            "name": "UPS detailed: Input Power",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.6.0",
+            "key": "ragtech.ext.ragtechUpsInputPower",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Input power estimated from output current and input voltage. Source metric: power_in. Divide this value by 100 to obtain watts. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "W",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "ead6b6324c0641c9a680ae66d039f753",
+            "name": "UPS detailed: Output Energy",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.7.0",
+            "key": "ragtech.ext.ragtechUpsOutputEnergy",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Accumulated output energy. Source metric: energy_out. Divide this value by 100 to obtain kWh. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "kWh",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "aaced27175e0469da02632ec36ce712b",
+            "name": "UPS detailed: Input Energy",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.8.0",
+            "key": "ragtech.ext.ragtechUpsInputEnergy",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Accumulated input energy. Source metric: energy_in. Divide this value by 100 to obtain kWh. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "kWh",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "ca05a969c6424a87b6ddf58e5910c5de",
+            "name": "UPS detailed: Temperature",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.9.0",
+            "key": "ragtech.ext.ragtechUpsTemperature",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "UPS temperature; sensor location is unknown. Source metric: temperature. Divide this value by 100 to obtain degrees Celsius. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "°C",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "6563ae98412247f08dc4f439166e2ca2",
+            "name": "UPS detailed: Battery Charge",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.10.0",
+            "key": "ragtech.ext.ragtechUpsBatteryCharge",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Unclamped estimated battery charge. Source metric: battery_state. Divide this value by 100 to obtain percent. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "%",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "6e715b70fba7403f982ba90fa01ef9a1",
+            "name": "UPS detailed: Battery Voltage",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.11.0",
+            "key": "ragtech.ext.ragtechUpsBatteryVoltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Battery DC voltage. Source metric: battery_voltage. Divide this value by 100 to obtain volts. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "V",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "db191465577b4ce3809bd8971503ba2b",
+            "name": "UPS detailed: Output Frequency",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.12.0",
+            "key": "ragtech.ext.ragtechUpsOutputFrequency",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Output frequency. Source metric: frequency. Returns noSuchInstance when oscillator calibration is unavailable. Divide this value by 100 to obtain hertz. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "Hz",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "df53e192166948feab228c1cfece115e",
+            "name": "UPS detailed: Battery Runtime",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.1.13.0",
+            "key": "ragtech.ext.ragtechUpsBatteryRuntime",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "FLOAT",
+            "description": "Estimated battery runtime under the current load. Source metric: battery_runtime. Divide this value by 100 to obtain minutes. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "metrics"
+              }
+            ],
+            "units": "min",
+            "preprocessing": [
+              {
+                "type": "MULTIPLIER",
+                "parameters": [
+                  "0.01"
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "3af82e9139b841bb8efafcca0712568a",
+            "name": "UPS flag: No Battery",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.1.0",
+            "key": "ragtech.flag.ragtechUpsNoBattery",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Battery is absent. Source flag: no_battery. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "4d7bc2b337ed4030991abf59135812cf",
+            "name": "UPS flag: Old Battery",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.2.0",
+            "key": "ragtech.flag.ragtechUpsOldBattery",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Battery needs replacement. Source flag: old_battery. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "64ac57794cdc46889318cdb664c3a8d9",
+            "name": "UPS flag: Operational Checkup",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.3.0",
+            "key": "ragtech.flag.ragtechUpsOperationalCheckup",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Operational checkup is active. Source flag: op_checkup. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "67940dff0ff84612aca9ff70bc314b15",
+            "name": "UPS flag: No Input Voltage",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.4.0",
+            "key": "ragtech.flag.ragtechUpsNoInputVoltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Input voltage is absent. Source flag: no_v_input. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "b97c8ada2e2544f89616adc9e43d4d72",
+            "name": "UPS flag: Low Input Voltage",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.5.0",
+            "key": "ragtech.flag.ragtechUpsLowInputVoltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Input voltage is low. Source flag: lo_v_input. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "570114e61a0f45a79a634b934b80d481",
+            "name": "UPS flag: High Input Voltage",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.6.0",
+            "key": "ragtech.flag.ragtechUpsHighInputVoltage",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Input voltage is high. Source flag: hi_v_input. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "6e3760e4dd38498bb141e0b0d3d84254",
+            "name": "UPS flag: On Battery",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.7.0",
+            "key": "ragtech.flag.ragtechUpsOnBattery",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Device reports battery operation. Source flag: op_battery. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "cf4f899abc9a4620995e47773c3982a1",
+            "name": "UPS flag: High Output Load",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.8.0",
+            "key": "ragtech.flag.ragtechUpsHighOutputLoad",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Output load is high. Source flag: hi_p_output. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "ed8e31bca4814e7facb656547b94300b",
+            "name": "UPS flag: Low Battery",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.9.0",
+            "key": "ragtech.flag.ragtechUpsLowBattery",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Battery is low. Source flag: lo_battery. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "2681c0a8728d4048943e9b3050a2bc36",
+            "name": "UPS flag: Overtemperature Failure",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.10.0",
+            "key": "ragtech.flag.ragtechUpsOvertemperatureFailure",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Overtemperature failure. Source flag: fail_overtemp. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "a9285a16ccfd43008e78bfd4239b9965",
+            "name": "UPS flag: End Battery Failure",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.11.0",
+            "key": "ragtech.flag.ragtechUpsEndBatteryFailure",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Battery depleted failure. Source flag: fail_end_battery. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "d982d799286542fe8efb0b8dee21b5ef",
+            "name": "UPS flag: Overload Failure",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.12.0",
+            "key": "ragtech.flag.ragtechUpsOverloadFailure",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Overload failure. Source flag: fail_overload. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "9aebb9d06b754de69f668aabe26dc4d8",
+            "name": "UPS flag: Abnormal Output Voltage Failure",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.13.0",
+            "key": "ragtech.flag.ragtechUpsAbnormalOutputVoltageFailure",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Abnormal output voltage failure. Source flag: fail_abnormal_vout. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "35629733ec424e3b8e1e126c2cb186ca",
+            "name": "UPS flag: Abnormal Battery Voltage Failure",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.14.0",
+            "key": "ragtech.flag.ragtechUpsAbnormalBatteryVoltageFailure",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Abnormal battery voltage failure. Source flag: fail_abnormal_vbat. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "4625250fe6f44b818bd8e03c7d823625",
+            "name": "UPS flag: Inverter Failure",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.15.0",
+            "key": "ragtech.flag.ragtechUpsInverterFailure",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Inverter failure. Source flag: fail_inverter. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "061f23a8b5134d9597bf0fc45e31aa70",
+            "name": "UPS flag: Short Circuit Failure",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.16.0",
+            "key": "ragtech.flag.ragtechUpsShortCircuitFailure",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Short circuit failure. Source flag: fail_shortcircuit. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "553ec745afe04838961680d022354050",
+            "name": "UPS flag: Input Synchronized",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.17.0",
+            "key": "ragtech.flag.ragtechUpsInputSynchronized",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Output is synchronized with input. Source flag: sync_input. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "b4a66680a25a4c9c925d92dc994776ad",
+            "name": "UPS flag: More Battery",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.18.0",
+            "key": "ragtech.flag.ragtechUpsMoreBattery",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Device reports the more-battery flag. Source flag: more_battery. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "22791487dfea4e41865103045b802e0a",
+            "name": "UPS flag: Less Battery",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.19.0",
+            "key": "ragtech.flag.ragtechUpsLessBattery",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Device reports the less-battery flag. Source flag: less_battery. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "43e061f8b71e4878b9f98d23ecf9b72f",
+            "name": "UPS flag: Remote Control Active",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.2.20.0",
+            "key": "ragtech.flag.ragtechUpsRemoteControlActive",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Remote control is active. Source flag: remote_control_active. The device flag is reported without inference; active means true. Retains the last sample while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "status"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS flag"
+            }
+          },
+          {
+            "uuid": "c668c2516b884958a7cc35514019cd64",
+            "name": "UPS: Serial connection state",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.3.0",
+            "key": "ragtech.ups.connected",
+            "delay": "{$UPS.POLL.INTERVAL}",
+            "history": "7d",
+            "trends": "365d",
+            "value_type": "UNSIGNED",
+            "description": "Current serial communication state. Before the first successful UPS sample this is disconnected. If disconnected, metric and flag extensions are stale and should not be treated as live readings.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "availability"
+              }
+            ],
+            "valuemap": {
+              "name": "UPS connection"
+            }
+          },
+          {
+            "uuid": "f16d52900b454344a72cc8ed91a19ebe",
+            "name": "UPS: Last raw response",
+            "type": "SNMP_AGENT",
+            "snmp_oid": "1.3.6.1.3.1628.1.4.0",
+            "key": "ragtech.ups.raw_packet",
+            "delay": "5m",
+            "history": "1d",
+            "trends": "0",
+            "value_type": "TEXT",
+            "description": "Last received UPS response as binary bytes, not a hexadecimal text string. Empty before the first sample; normally 31 bytes for Family 10. Retains the last packet while disconnected.",
+            "tags": [
+              {
+                "tag": "component",
+                "value": "diagnostics"
+              }
+            ]
+          }
+        ],
+        "valuemaps": [
+          {
+            "uuid": "ed22da321a6242c1b39e54455c523794",
+            "name": "UPS flag",
+            "mappings": [
+              {
+                "value": "0",
+                "newvalue": "Inactive"
+              },
+              {
+                "value": "1",
+                "newvalue": "Active"
+              }
+            ]
+          },
+          {
+            "uuid": "e202df438fcd468e939260fd78db38f5",
+            "name": "UPS connection",
+            "mappings": [
+              {
+                "value": "0",
+                "newvalue": "Disconnected"
+              },
+              {
+                "value": "1",
+                "newvalue": "Connected"
+              }
+            ]
+          },
+          {
+            "uuid": "eb24ad915bd341ba93b697ad16cc8c65",
+            "name": "UPS battery status",
+            "mappings": [
+              {
+                "value": "1",
+                "newvalue": "Unknown"
+              },
+              {
+                "value": "2",
+                "newvalue": "Normal"
+              },
+              {
+                "value": "3",
+                "newvalue": "Low"
+              },
+              {
+                "value": "4",
+                "newvalue": "Depleted"
+              }
+            ]
+          },
+          {
+            "uuid": "0816dc92bfd64e36ab7b67a018c60a86",
+            "name": "UPS output source",
+            "mappings": [
+              {
+                "value": "1",
+                "newvalue": "Other / unknown"
+              },
+              {
+                "value": "2",
+                "newvalue": "None"
+              },
+              {
+                "value": "3",
+                "newvalue": "Mains"
+              },
+              {
+                "value": "4",
+                "newvalue": "Bypass"
+              },
+              {
+                "value": "5",
+                "newvalue": "Battery"
+              },
+              {
+                "value": "6",
+                "newvalue": "Booster"
+              },
+              {
+                "value": "7",
+                "newvalue": "Reducer"
+              }
+            ]
+          }
+        ],
+        "tags": [
+          {
+            "tag": "class",
+            "value": "power"
+          },
+          {
+            "tag": "target",
+            "value": "ragtech"
+          }
+        ],
+        "macros": [
+          {
+            "macro": "{$UPS.POLL.INTERVAL}",
+            "value": "30s",
+            "description": "UPS polling interval."
+          },
+          {
+            "macro": "{$UPS.NODATA.TIMEOUT}",
+            "value": "5m",
+            "description": "SNMP data absence threshold."
+          },
+          {
+            "macro": "{$UPS.LOAD.WARN}",
+            "value": "80",
+            "description": "Output load warning threshold in percent."
+          }
+        ]
+      }
+    ],
+    "triggers": [
+      {
+        "uuid": "a94a84edcc38407ba1df886cbc768c6c",
+        "name": "UPS: Serial communication lost",
+        "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0",
+        "priority": "HIGH",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "availability"
+          }
+        ]
+      },
+      {
+        "uuid": "b81d195fe81d488ab69d4d40f00235a7",
+        "name": "UPS: SNMP communication unavailable",
+        "expression": "nodata(/Ragtech UPS by SNMP/ragtech.ups.connected,{$UPS.NODATA.TIMEOUT})=1",
+        "priority": "HIGH",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "availability"
+          }
+        ]
+      },
+      {
+        "uuid": "cf95ebf057284ca4a6e1fcd7a5aa9127",
+        "name": "UPS: Running on battery",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.ups.output_source)=5 and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "WARNING",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      },
+      {
+        "uuid": "d5f50b81a29543b5b345558602fbf763",
+        "name": "UPS: Battery low",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.ups.battery_status)=3 and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "HIGH",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      },
+      {
+        "uuid": "1a507d8daa2441d19bf4721f93c5bbb6",
+        "name": "UPS: Battery depleted",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.ups.battery_status)=4 and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "DISASTER",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      },
+      {
+        "uuid": "b0b617ac306c4fde86b7402bf187a5e7",
+        "name": "UPS: Output load high",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.ups.output_load)>{$UPS.LOAD.WARN} and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "WARNING",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      },
+      {
+        "uuid": "72fb0f2513484ca1a43d2ad42e5db792",
+        "name": "UPS: Overtemperature failure",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.flag.ragtechUpsOvertemperatureFailure)=1 and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "HIGH",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      },
+      {
+        "uuid": "98780752a762445393766eeeb96262a9",
+        "name": "UPS: Overload failure",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.flag.ragtechUpsOverloadFailure)=1 and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "HIGH",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      },
+      {
+        "uuid": "d196ea9a67134aef869abb6d782c7259",
+        "name": "UPS: Inverter failure",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.flag.ragtechUpsInverterFailure)=1 and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "HIGH",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      },
+      {
+        "uuid": "d8c9d993bc85492996c29e5ed8141388",
+        "name": "UPS: Short circuit failure",
+        "expression": "last(/Ragtech UPS by SNMP/ragtech.flag.ragtechUpsShortCircuitFailure)=1 and last(/Ragtech UPS by SNMP/ragtech.ups.connected)=1",
+        "priority": "HIGH",
+        "tags": [
+          {
+            "tag": "scope",
+            "value": "notice"
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "UPS: Serial communication lost",
+            "expression": "max(/Ragtech UPS by SNMP/ragtech.ups.connected,2m)=0"
+          }
+        ]
+      }
+    ],
+    "graphs": [
+      {
+        "uuid": "16c7d26bf9bf4cc5933960c5174817b5",
+        "name": "UPS: Voltages",
+        "graph_items": [
+          {
+            "sortorder": "0",
+            "color": "199C0D",
+            "item": {
+              "host": "Ragtech UPS by SNMP",
+              "key": "ragtech.ups.input_voltage"
+            }
+          },
+          {
+            "sortorder": "1",
+            "color": "F63100",
+            "item": {
+              "host": "Ragtech UPS by SNMP",
+              "key": "ragtech.ups.output_voltage"
+            }
+          },
+          {
+            "sortorder": "2",
+            "color": "2774A4",
+            "item": {
+              "host": "Ragtech UPS by SNMP",
+              "key": "ragtech.ups.battery_voltage"
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "eddfaa3c177b43ebbe377e3096ba405e",
+        "name": "UPS: Load",
+        "graph_items": [
+          {
+            "sortorder": "0",
+            "color": "199C0D",
+            "item": {
+              "host": "Ragtech UPS by SNMP",
+              "key": "ragtech.ups.output_load"
+            }
+          },
+          {
+            "sortorder": "1",
+            "color": "F63100",
+            "item": {
+              "host": "Ragtech UPS by SNMP",
+              "key": "ragtech.ups.charge"
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "7ac8ee0e3154493b93f09235e1061ee1",
+        "name": "UPS: Output power",
+        "graph_items": [
+          {
+            "sortorder": "0",
+            "color": "199C0D",
+            "item": {
+              "host": "Ragtech UPS by SNMP",
+              "key": "ragtech.ups.output_power"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
